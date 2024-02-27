@@ -1,0 +1,27 @@
+package by.potapchuk.userservice.core.dto;
+
+import by.potapchuk.userservice.core.entity.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.util.UUID;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Accessors(chain = true)
+public class UserDetailsDto implements Identifiable, Userable {
+
+    private UUID id;
+
+    private String email;
+
+    private String fio;
+
+    private UserRole role;
+
+}

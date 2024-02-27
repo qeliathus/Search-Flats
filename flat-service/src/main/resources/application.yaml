@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/flat
+    username: ${PGLOGIN}
+    password: ${PGPASSWORD}
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    deserialization:
+      read-unknown-enum-values-as-null: true
+server:
+  port: 8082
+  servlet:
+    context-path: "/realty/api"
+
+custom:
+  rent-web-sites:
+    pages-limit: 10
+    kufar:
+      base-url-sale: https://re.kufar.by/l/minsk/kupit/kvartiru
+      base-url-rent: "https://re.kufar.by/l/minsk/snyat/kvartiru-dolgosrochno"
+
+app:
+  jwt:
+    secret: QAZ1ZjAzNjQtMzViZi00MDRjLTljZjQtNjNjYWIyZTU5ZDYz
+    issuer: org.alexey
