@@ -1,6 +1,6 @@
 package by.potapchuk.flatservice.service.api;
 
-public interface FlatParsingService {
+public interface IFlatParsingService {
 
     void saveRentFlatsFromParsing();
 

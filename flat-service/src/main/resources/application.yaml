@@ -27,4 +27,4 @@ custom:
 app:
   jwt:
     secret: QAZ1ZjAzNjQtMzViZi00MDRjLTljZjQtNjNjYWIyZTU5ZDYz
-    issuer: org.alexey
+    issuer: by.potapchuk

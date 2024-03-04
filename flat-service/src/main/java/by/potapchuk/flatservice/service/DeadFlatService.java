@@ -2,15 +2,15 @@ package by.potapchuk.flatservice.service;
 
 import by.potapchuk.flatservice.core.entity.DeadFlat;
 import by.potapchuk.flatservice.repository.api.DeadFlatRepository;
-import by.potapchuk.flatservice.service.api.DeadFlatService;
+import by.potapchuk.flatservice.service.api.IDeadFlatService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeadFlatServiceImpl implements DeadFlatService {
+public class DeadFlatService implements IDeadFlatService {
 
     private final DeadFlatRepository deadFlatRepository;
 
-    public DeadFlatServiceImpl(DeadFlatRepository deadFlatRepository) {
+    public DeadFlatService(DeadFlatRepository deadFlatRepository) {
         this.deadFlatRepository = deadFlatRepository;
     }
 

@@ -3,10 +3,10 @@ databaseChangeLog:
       file: db/db.schemas.xml
   - include:
       relativeToChangelogFile: true
-      file: ddl/flats-ddl.xml
+      file: ddl/users-ddl.xml
   - include:
       relativeToChangelogFile: true
-      file: ddl/dead-flats-ddl.xml
+      file: dml/users-dml.xml
   - include:
       relativeToChangelogFile: true
-      file: ddl/bookmark-ddl.xml
+      file: ddl/tokens-ddl.xml

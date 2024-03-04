@@ -5,8 +5,9 @@ import by.potapchuk.flatservice.core.dto.FlatInfoDto;
 import by.potapchuk.flatservice.core.dto.FlatWriteDto;
 import by.potapchuk.flatservice.core.entity.Flat;
 import by.potapchuk.flatservice.repository.api.FlatRepository;
-import by.potapchuk.flatservice.service.api.FlatCrudService;
-import by.potapchuk.flatservice.transformer.api.FlatTransformer;
+import by.potapchuk.flatservice.service.api.IFlatCrudService;
+import by.potapchuk.flatservice.transformer.api.IFlatTransformer;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,31 +16,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
-public class FlatCrudServiceImpl implements FlatCrudService {
+public class FlatCrudService implements IFlatCrudService {
 
     private final FlatRepository flatRepository;
-    private final FlatTransformer flatTransformer;
+    private final IFlatTransformer IFlatTransformer;
 
-    public FlatCrudServiceImpl(
+    public FlatCrudService(
             FlatRepository flatRepository,
-            FlatTransformer flatTransformer
+            IFlatTransformer IFlatTransformer
     ) {
         this.flatRepository = flatRepository;
-        this.flatTransformer = flatTransformer;
+        this.IFlatTransformer = IFlatTransformer;
     }
 
 
     @Override
+    public FlatInfoDto getFlatById(UUID flatId) {
+        Flat flat = flatRepository.findById(flatId).orElseThrow(() -> new EntityNotFoundException("Flat not found with id: " + flatId));
+        return IFlatTransformer.transformFlatInfoDtoFromEntity(flat);
+    }
+
+    @Override
     public void createFlat(FlatWriteDto flatWriteDto) {
-        flatRepository.save(flatTransformer.transformEntityFromFlatWriteDto(flatWriteDto));
+        flatRepository.save(IFlatTransformer.transformEntityFromFlatWriteDto(flatWriteDto));
     }
 
     @Override
     public Page<FlatInfoDto> getAllFlats(FlatFilter flatFilter, Pageable pageable) {
-        return flatRepository.findAll(buildQuery(flatFilter), pageable).map(flatTransformer::transformFlatInfoDtoFromEntity);
+        return flatRepository.findAll(buildQuery(flatFilter), pageable).map(IFlatTransformer::transformFlatInfoDtoFromEntity);
     }
 
     private Specification<Flat> buildQuery(FlatFilter flatFilter) {

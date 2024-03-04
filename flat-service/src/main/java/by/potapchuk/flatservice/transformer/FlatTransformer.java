@@ -3,13 +3,13 @@ package by.potapchuk.flatservice.transformer;
 import by.potapchuk.flatservice.core.dto.FlatInfoDto;
 import by.potapchuk.flatservice.core.dto.FlatWriteDto;
 import by.potapchuk.flatservice.core.entity.Flat;
-import by.potapchuk.flatservice.transformer.api.FlatTransformer;
+import by.potapchuk.flatservice.transformer.api.IFlatTransformer;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneId;
 
 @Component
-public class FlatTransformerImpl implements FlatTransformer {
+public class FlatTransformer implements IFlatTransformer {
 
     @Override
     public FlatInfoDto transformFlatInfoDtoFromEntity(Flat flat) {

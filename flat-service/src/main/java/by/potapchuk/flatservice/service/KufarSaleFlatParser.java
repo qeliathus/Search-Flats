@@ -3,7 +3,7 @@ package by.potapchuk.flatservice.service;
 import by.potapchuk.flatservice.core.entity.DeadFlat;
 import by.potapchuk.flatservice.core.entity.Flat;
 import by.potapchuk.flatservice.core.entity.FlatWebSite;
-import by.potapchuk.flatservice.service.api.DeadFlatService;
+import by.potapchuk.flatservice.service.api.IDeadFlatService;
 import by.potapchuk.flatservice.service.api.SaleFlatParser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 import static by.potapchuk.flatservice.core.entity.OfferType.SALE;
 import static by.potapchuk.flatservice.utils.KufarNextPageLinkParser.parseKufarNextPageLink;
@@ -20,10 +21,10 @@ import static by.potapchuk.flatservice.utils.KufarNextPageLinkParser.parseKufarN
 @Component
 public class KufarSaleFlatParser implements SaleFlatParser {
 
-    private final DeadFlatService deadFlatService;
+    private final IDeadFlatService IDeadFlatService;
 
-    public KufarSaleFlatParser(DeadFlatService deadFlatService) {
-        this.deadFlatService = deadFlatService;
+    public KufarSaleFlatParser(IDeadFlatService IDeadFlatService) {
+        this.IDeadFlatService = IDeadFlatService;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class KufarSaleFlatParser implements SaleFlatParser {
     @Override
     public List<Flat> parseFlats(Element content) {
         List<Element> sections = content.child(0).child(3).child(0).children();
-        return sections.stream().map(this::tryConvertToFlat).filter(it -> it != null).toList();
+        return sections.stream().map(this::tryConvertToFlat).filter(Objects::nonNull).toList();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class KufarSaleFlatParser implements SaleFlatParser {
             return convertToFlat(section);
         } catch (Exception exception){
             log.error("dead flat: " + exception);
-            deadFlatService.saveDeadFlat(convertToDeadFlat(section, exception));
+            IDeadFlatService.saveDeadFlat(convertToDeadFlat(section, exception));
             return null;
         }
     }

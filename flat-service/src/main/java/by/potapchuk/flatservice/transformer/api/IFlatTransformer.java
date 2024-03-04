@@ -4,7 +4,7 @@ import by.potapchuk.flatservice.core.dto.FlatInfoDto;
 import by.potapchuk.flatservice.core.dto.FlatWriteDto;
 import by.potapchuk.flatservice.core.entity.Flat;
 
-public interface FlatTransformer {
+public interface IFlatTransformer {
 
     FlatInfoDto transformFlatInfoDtoFromEntity(Flat flat);
 

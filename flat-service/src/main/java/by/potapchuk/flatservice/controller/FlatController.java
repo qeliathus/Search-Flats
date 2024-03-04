@@ -3,8 +3,8 @@ package by.potapchuk.flatservice.controller;
 import by.potapchuk.flatservice.core.dto.FlatFilter;
 import by.potapchuk.flatservice.core.dto.FlatWriteDto;
 import by.potapchuk.flatservice.core.dto.PageOfFlatDto;
-import by.potapchuk.flatservice.service.api.FlatCrudService;
-import by.potapchuk.flatservice.transformer.api.PageTransformer;
+import by.potapchuk.flatservice.service.api.IFlatCrudService;
+import by.potapchuk.flatservice.transformer.api.IPageTransformer;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/flats")
 public class FlatController {
 
-    private final FlatCrudService flatService;
-    private final PageTransformer pageTransformer;
+    private final IFlatCrudService flatService;
+    private final IPageTransformer IPageTransformer;
 
-    public FlatController(FlatCrudService flatService, PageTransformer pageTransformer) {
+    public FlatController(IFlatCrudService flatService, IPageTransformer IPageTransformer) {
         this.flatService = flatService;
-        this.pageTransformer = pageTransformer;
+        this.IPageTransformer = IPageTransformer;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -54,6 +54,6 @@ public class FlatController {
                 .setAreaTo(areaTo)
                 .setFloors(floors)
                 .setPhoto(photo);
-        return pageTransformer.transformPageOfFlatDtoFromPage(flatService.getAllFlats(flatFilter, pageable));
+        return IPageTransformer.transformPageOfFlatDtoFromPage(flatService.getAllFlats(flatFilter, pageable));
     }
 }

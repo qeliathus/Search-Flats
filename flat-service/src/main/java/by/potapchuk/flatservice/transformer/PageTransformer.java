@@ -2,12 +2,12 @@ package by.potapchuk.flatservice.transformer;
 
 import by.potapchuk.flatservice.core.dto.FlatInfoDto;
 import by.potapchuk.flatservice.core.dto.PageOfFlatDto;
-import by.potapchuk.flatservice.transformer.api.PageTransformer;
+import by.potapchuk.flatservice.transformer.api.IPageTransformer;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PageTransformerImpl implements PageTransformer {
+public class PageTransformer implements IPageTransformer {
 
     @Override
     public PageOfFlatDto transformPageOfFlatDtoFromPage(Page<FlatInfoDto> page) {

@@ -5,7 +5,7 @@ import by.potapchuk.flatservice.core.entity.FlatWebSite;
 import by.potapchuk.flatservice.repository.api.FlatRepository;
 import by.potapchuk.flatservice.service.api.ContentRequester;
 import by.potapchuk.flatservice.service.api.FlatParser;
-import by.potapchuk.flatservice.service.api.FlatParsingService;
+import by.potapchuk.flatservice.service.api.IFlatParsingService;
 import by.potapchuk.flatservice.service.factory.RentContentRequesterFactory;
 import by.potapchuk.flatservice.service.factory.RentFlatParserFactory;
 import by.potapchuk.flatservice.service.factory.SaleContentRequesterFactory;
@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Service
-public class FlatParsingServiceImpl implements FlatParsingService {
+public class FlatParsingServiceImpl implements IFlatParsingService {
 
     @Value("${custom.rent-web-sites.pages-limit}")
     private Integer pagesLimit;

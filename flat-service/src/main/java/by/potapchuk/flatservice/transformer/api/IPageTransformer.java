@@ -4,7 +4,7 @@ import by.potapchuk.flatservice.core.dto.FlatInfoDto;
 import by.potapchuk.flatservice.core.dto.PageOfFlatDto;
 import org.springframework.data.domain.Page;
 
-public interface PageTransformer {
+public interface IPageTransformer {
 
     PageOfFlatDto transformPageOfFlatDtoFromPage(Page<FlatInfoDto> page);
 }
