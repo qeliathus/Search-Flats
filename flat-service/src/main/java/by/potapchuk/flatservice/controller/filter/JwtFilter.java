@@ -35,12 +35,11 @@ public class JwtFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        final String header = request.getHeader(AUTHORIZATION);
-        if (isEmpty(header) || !header.startsWith("Bearer ")) {
+        final String token = request.getHeader(AUTHORIZATION);
+        if (isEmpty(token)) {
             filterChain.doFilter(request, response);
             return;
         }
-        final String token = header.split(" ")[1].trim();
         if (!jwtHandler.validate(token)) {
             filterChain.doFilter(request, response);
             return;

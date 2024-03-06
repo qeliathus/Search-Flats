@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -47,7 +48,12 @@ public class SecurityConfig {
                 .requestMatchers(POST, "/flats-scrapping/sale").hasAnyRole("ADMIN")
                 .requestMatchers(GET, "/flats/{uuid}/bookmark").permitAll()
                 .requestMatchers(DELETE, "/flats/{uuid}/bookmark").permitAll()
-                .requestMatchers(GET, "/bookmark").permitAll()
+                .requestMatchers(GET, "/bookmark").authenticated()
+        );
+
+        http.addFilterBefore(
+                filter,
+                UsernamePasswordAuthenticationFilter.class
         );
 
         return http.build();
